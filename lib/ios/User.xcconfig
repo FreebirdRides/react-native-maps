@@ -1,0 +1,2 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) $(SRCROOT)/../../../../ios/Frameworks/GoogleMaps-2.7.0
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) HAVE_GOOGLE_MAPS=1

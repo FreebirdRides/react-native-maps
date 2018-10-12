@@ -1096,4 +1096,34 @@ static int kDragCenterContext;
     return zoomLevel;
 }
 
+RCT_REMAP_METHOD(getDirections,
+                 origin:(CLLocationCoordinate2D)origin
+                 destination:(CLLocationCoordinate2D)destination
+                 getDirectionsWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
+  MKPlacemark *placemarkOrigin = [[MKPlacemark alloc] initWithCoordinate:origin];
+  MKMapItem *mapItemOrigin = [[MKMapItem alloc] initWithPlacemark:placemarkOrigin];
+  [request setSource:mapItemOrigin];
+  MKPlacemark *placemarkDestination = [[MKPlacemark alloc] initWithCoordinate:destination];
+  MKMapItem *mapItemDestination = [[MKMapItem alloc] initWithPlacemark:placemarkDestination];
+  [request setDestination:mapItemDestination];
+  [request setTransportType:MKDirectionsTransportTypeAny]; // This can be limited to automobile and walking directions.
+  [request setRequestsAlternateRoutes:YES]; // Gives you several route options.
+  MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
+  [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+      if (error) {
+        reject(@"no_directions", @"There were no directions", error);
+      } else {
+        for (MKRoute *route in [response routes]) {
+          resolve([route polyline]);
+          break;
+          // [myMapView addOverlay:[route polyline] level:MKOverlayLevelAboveRoads]; // Draws the route above roads, but below labels.
+          // You can also get turn-by-turn steps, distance, advisory notices, ETA, etc by accessing various route properties.
+        }
+      }
+  }];
+}
+
 @end
