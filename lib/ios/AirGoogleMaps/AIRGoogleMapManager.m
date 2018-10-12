@@ -449,26 +449,28 @@ RCT_REMAP_METHOD(getDirections,
     if (error) {
       reject(@"no_directions", @"There were no directions", error);
     } else {
-      NSMutableArray* points = [[NSMutableArray alloc] init];
+      NSMutableArray* routes = [[NSMutableArray alloc] init];
       for (MKRoute *route in [response routes]) {
-        //route is the MKRoute in this example
-        //but the polyline can be any MKPolyline
+        // route is the MKRoute in this example
+        // but the polyline can be any MKPolyline
         NSUInteger pointCount = route.polyline.pointCount;
-        //allocate a C array to hold this many points/coordinates...
+        // allocate a C array to hold this many points/coordinates...
         CLLocationCoordinate2D *routeCoordinates
         = malloc(pointCount * sizeof(CLLocationCoordinate2D));
-        //get the coordinates (all of them)...
+        // get the coordinates (all of them)...
         [route.polyline getCoordinates:routeCoordinates
                                  range:NSMakeRange(0, pointCount)];
-        //this part just shows how to use the results...
-        //NSLog(@"route pointCount = %d", pointCount);
+        // this part just shows how to use the results...
+        // NSLog(@"route pointCount = %d", pointCount);
+        NSMutableArray* points = [[NSMutableArray alloc] init];
         for (int c = 0; c < pointCount; c++)
         {
-          //NSLog(@"routeCoordinates[%d] = %f, %f", c, routeCoordinates[c].latitude, routeCoordinates[c].longitude);
+          // NSLog(@"routeCoordinates[%d] = %f, %f", c, routeCoordinates[c].latitude, routeCoordinates[c].longitude);
           [points addObject:@[@(routeCoordinates[c].latitude), @(routeCoordinates[c].longitude)]];
         }
+        [routes addObject:@{@"overview_polyline": @{@"points": points}}];
       }
-      resolve(points);
+      resolve(routes);
     }
   }];
 }
