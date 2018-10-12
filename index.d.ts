@@ -440,10 +440,16 @@ declare module 'react-native-maps' {
     MUTEDSTANDARD: MapTypes
   }
 
+  interface IRoute {
+    overview_polyline: {
+      points: number[]
+    }
+  }
+
   export function getDirections(
     origin: LatLng,
     destination: LatLng
-  ): Promise<string>
+  ): Promise<IRoute[]>
 
   export const PROVIDER_DEFAULT: null
   export const PROVIDER_GOOGLE: 'google'
