@@ -47,4 +47,9 @@ dependencies {
   implementation "com.google.android.gms:play-services-base:$googlePlayServicesVersion"
   implementation "com.google.android.gms:play-services-maps:$googlePlayServicesVersion"
   implementation "com.google.maps.android:android-maps-utils:$androidMapsUtilsVersion"
+
+  def supportLibVersion = safeExtGet('supportLibVersion', DEFAULT_SUPPORT_LIB_VERSION)
+  implementation "com.android.support:appcompat-v7:$supportLibVersion"
+  implementation "com.android.support:support-media-compat:$supportLibVersion"
+  implementation "com.android.support:support-v4:$supportLibVersion"
 }
