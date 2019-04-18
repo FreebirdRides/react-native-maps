@@ -429,9 +429,9 @@ public class AirMapMarker extends AirMapFeature {
         int height = 50;
         Bitmap myBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         int [] allpixels = new int [myBitmap.getHeight()*myBitmap.getWidth()];
+        // bit.getPixels(allpixels, 0, myBitmap.getWidth(), 0, 0, myBitmap.getWidth(), myBitmap.getHeight());
         myBitmap.setPixels(allpixels, 0, width, 0, 0, width, height);
-        for(int i =0; i<myBitmap.getHeight()*myBitmap.getWidth(); i++) {
-        if (allpixels[i] == transparentColor)
+        for (int i = 0; i < myBitmap.getHeight() * myBitmap.getWidth(); i++) {
           allpixels[i] = Color.alpha(Color.TRANSPARENT);
         }
         myBitmap.setPixels(allpixels, 0, myBitmap.getWidth(), 0, 0, myBitmap.getWidth(), myBitmap.getHeight());
