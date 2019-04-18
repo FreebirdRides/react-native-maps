@@ -416,7 +416,12 @@ public class AirMapMarker extends AirMapFeature {
         canvas.drawBitmap(viewBitmap, 0, 0, null);
         return BitmapDescriptorFactory.fromBitmap(combinedBitmap);
       } else {
-        return BitmapDescriptorFactory.fromBitmap(createDrawable());
+        // NOTE: Throws the below error
+        //   https://rollbar.com/freebirdrides/React-Native/items/756/occurrences/74611669252/
+        // return BitmapDescriptorFactory.fromBitmap(createDrawable());
+
+        // render the default marker pin
+        return BitmapDescriptorFactory.defaultMarker(this.markerHue);
       }
     } else if (iconBitmapDescriptor != null) {
       // use local image as a marker
