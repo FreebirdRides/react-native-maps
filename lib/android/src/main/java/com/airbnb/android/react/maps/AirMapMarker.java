@@ -418,24 +418,25 @@ public class AirMapMarker extends AirMapFeature {
       } else {
         // NOTE: Throws the below error
         //   https://rollbar.com/freebirdrides/React-Native/items/756/occurrences/74611669252/
-        // return BitmapDescriptorFactory.fromBitmap(createDrawable());
+        Bitmap viewBitmap = createDrawable();
+        return BitmapDescriptorFactory.fromBitmap(viewBitmap);
 
         // render the default marker pin
         // return BitmapDescriptorFactory.defaultMarker(this.markerHue);
 
         // render a blank
-        Bitmap viewBitmap = createDrawable();
-        int width = 50;
-        int height = 50;
-        Bitmap myBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        int [] allpixels = new int [myBitmap.getHeight()*myBitmap.getWidth()];
-        // bit.getPixels(allpixels, 0, myBitmap.getWidth(), 0, 0, myBitmap.getWidth(), myBitmap.getHeight());
-        myBitmap.setPixels(allpixels, 0, width, 0, 0, width, height);
-        for (int i = 0; i < myBitmap.getHeight() * myBitmap.getWidth(); i++) {
-          allpixels[i] = Color.alpha(Color.TRANSPARENT);
-        }
-        myBitmap.setPixels(allpixels, 0, myBitmap.getWidth(), 0, 0, myBitmap.getWidth(), myBitmap.getHeight());
-        return BitmapDescriptorFactory.fromBitmap(myBitmap);
+        // Bitmap viewBitmap = createDrawable();
+        // int width = 50;
+        // int height = 50;
+        // Bitmap myBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        // int [] allpixels = new int [myBitmap.getHeight()*myBitmap.getWidth()];
+        // // bit.getPixels(allpixels, 0, myBitmap.getWidth(), 0, 0, myBitmap.getWidth(), myBitmap.getHeight());
+        // myBitmap.setPixels(allpixels, 0, width, 0, 0, width, height);
+        // for (int i = 0; i < myBitmap.getHeight() * myBitmap.getWidth(); i++) {
+        //   allpixels[i] = Color.alpha(Color.TRANSPARENT);
+        // }
+        // myBitmap.setPixels(allpixels, 0, myBitmap.getWidth(), 0, 0, myBitmap.getWidth(), myBitmap.getHeight());
+        // return BitmapDescriptorFactory.fromBitmap(myBitmap);
       }
     } else if (iconBitmapDescriptor != null) {
       // use local image as a marker
