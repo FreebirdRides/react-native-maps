@@ -542,6 +542,9 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
       int visibility = annotation.getVisibility();
       annotation.setVisibility(INVISIBLE);
 
+      // NOTE: crash
+      //   https://github.com/react-native-community/react-native-maps/issues/2564
+      //   https://github.com/react-native-community/react-native-maps/pull/2545/files
       // Remove from a view group if already present, prevent "specified child
       // already had a parent" error.
       ViewGroup annotationParent = (ViewGroup)annotation.getParent();
